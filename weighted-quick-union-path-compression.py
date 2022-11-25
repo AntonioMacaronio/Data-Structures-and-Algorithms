@@ -1,7 +1,7 @@
 class Union:
     def __init__(self):
-        self.id = {}
-        self.sz = {}
+        self.id = {} # maps the id to the root of its set
+        self.sz = {} # maps the id to the size of its set
         # for islands only
         self.count = 0
 
