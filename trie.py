@@ -1,24 +1,37 @@
+class TrieNode:
+    def __init__(self, char=None):
+        self.char = char
+        self.children = {}
+        self.end = False
+
 class Trie:
-    class TrieNode():
-        def __init__(self):
-            self.children = {}
-            self.end = False
-
     def __init__(self):
-        self.root = self.TrieNode()
-
-    def insert(self, word: str) -> None:
+        self.root = TrieNode()
+    
+    def insert(self, word):
         currNode = self.root
         for i, c in enumerate(word):
             if c in currNode.children:
                 currNode = currNode.children[c]
             else:
-                nextNode = self.TrieNode()
-                currNode.children[c] = nextNode
-                currNode = nextNode
-            
+                currNode.children[c] = TrieNode(c)
+                currNode = currNode.children[c]
             if i == len(word) - 1:
                 currNode.end = True
+                
+    def remove(self, word):
+        currNode = self.root
+        nodePath = []
+        for i, c in enumerate(word):
+            nodePath.append((currNode, currNode.children[c]))
+            currNode = currNode.children[c]
+        nodePath[-1][1].end = False
+        
+        for parentOfNode, node in reversed(nodePath):
+            if len(node.children) == 0:
+                del parentOfNode.children[node.char]
+            else:
+                return
     
     # returns True if word is inside the Trie
     def search(self, word: str) -> bool:
