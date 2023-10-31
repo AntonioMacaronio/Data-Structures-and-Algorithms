@@ -99,6 +99,3 @@ for key in keys:
     llrb_tree.insert_key(key)
 
 llrb_tree.display()
-
-
-
